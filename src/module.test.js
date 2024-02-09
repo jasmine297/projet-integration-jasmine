@@ -1,60 +1,152 @@
-import { calculateAge } from "./module";
+import { isFormFilled, isNameValid, isBirthDateValid, isZipCodeValid, isEmailValid } from "./module";
 
-let people20years;
-beforeEach(() => {
-    let date = new Date();
-    people20years = {
-        birth:new Date(date.setFullYear(date.getFullYear() - 20))
+ let emptyForm,halfEmptyForm,filledForm, invalidForm, invalidForm2, errorText;
+
+ beforeEach(() => {
+
+   emptyForm = {
+     lastName: "",
+     firstName: "",
+     email: "",
+     birthDate: "",
+     city: "",
+     zipCode: "",
+   };
+
+   halfEmptyForm = {
+     lastName: "",
+     firstName: "Prenom",
+     email: "",
+     birthDate:"07-29-1999",
+     city: "Valbonne",
+     zipCode: "",
+   };
+
+   filledForm = {
+     lastName: "Nom",
+     firstName: "Prenom",
+     email: "test@mail.fr",
+     birthDate: "07-29-1999",
+     city: "Valbonne",
+     zipCode: "06000",
+   };
+
+   invalidForm = {
+     lastName: "Nçà!?.:/èom",
+     firstName: "Pre68098nom",
+     email: "testmail.fr",
+     birthDate: "07-29-2020",
+     city: "Valbonne",
+     zipCode:"0600000",
+   };
+
+   invalidForm2 = {
+     lastName: "Nçà!?.:/èom",
+     firstName: "Pre68098nom",
+     email: "test@mailfr",
+     birthDate: "07292035",
+     city: "Valbonne",
+     zipCode:"06P00",
+   };
+
+   errorText = {
+     lastName: "",
+     firstName: "",
+     email: "",
+     birthDate: "",
+     city: "",
+     zipCode: "",
+   }
+ });
+
+ describe("isFormFilled Unit Test Suites", () => {
+
+   it("should return true if the form is filled", () => {
+     expect(isFormFilled(filledForm)).toEqual(true);
+   });
+
+   it("should throw an error if the form is not completly filled", () => {
+     expect(() => isFormFilled(halfEmptyForm)).toThrow("form isn't filled");
+   });
+
+   it("should throw an error if the form is not filled", () => {
+     expect(() => isFormFilled(emptyForm)).toThrow("form isn't filled");
+   });
+  
+
+ });
+
+ describe("isNameValid Unit Test Suites", () => {
+
+   it("should return true if the name is valid", () => {
+     expect(isNameValid(filledForm,filledForm.firstName,errorText)).toEqual(true);
+   });
+
+   it("should return true if the name is valid", () => {
+     expect(isNameValid(filledForm,filledForm.lastName,errorText)).toEqual(true);
+   });
+
+   it("should throw an error if the name is invalid", () => {
+     expect(() => isNameValid(invalidForm,invalidForm.lastName,errorText)).toThrow("lastname invalid");
+   });
+
+   it("should throw an error if the name is invalid", () => {
+     expect(() => isNameValid(invalidForm,invalidForm.firstName,errorText)).toThrow("firstname invalid");
+   });
+   
+ });
+
+ describe("isBirthDateValid Unit Test Suites", () => {
+
+   it("should return true if the birth date is valid", () => {
+     expect(isBirthDateValid(filledForm,errorText)).toEqual(true);
+   });
+
+   it("should throw an error if the age no greater than 18", () => {
+     expect(() => isBirthDateValid(invalidForm,errorText)).toThrow("age must be greater than 18");
+   });
+
+   it("should throw an error if the birth date is invalid", () => {
+    expect(() => isBirthDateValid(invalidForm2,errorText)).toThrow("birthDate doesn't have the format allow");
+   });
+
+   it("should throw an error if the birth date is invalid", () => {
+    const birthInvalid = {
+      birthDate:"111-111-111"
     };
-})
+    expect(() => isBirthDateValid(birthInvalid,errorText)).toThrow("birthDate is not a date");
+   });
 
+ });
 
+ describe("isZipCodeValid Unit Test Suites", () => {
 
+   it("should return true if the zip code is valid", () => {
+     expect(isZipCodeValid(filledForm,errorText)).toEqual(true);
+   });
 
-/**
- * @function calculateAge
- */
-describe("calculateAge Unit Test Suites", () => {
+   it("should throw an error if the zip code is invalid", () => {
+     expect(() => isZipCodeValid(invalidForm,errorText)).toThrow("zipCode must be a number and french with lenght equal ");
+   });
 
-   it("should return a correct age", () => {
-    expect(calculateAge(people20years)).toEqual(20);
-  }); 
+   it("should throw an error if the zip code is invalid", () => {
+     expect(() => isZipCodeValid(invalidForm2,errorText)).toThrow("zipCode must be a number and french with lenght equal ");
+   });
 
-  it("should return a correct age", () => {
-    const loise = {
-      birth: new Date("11/07/1991"),
-    };
+ });
 
-    expect(calculateAge(loise)).toEqual(32);
+ describe("isEmailValid Unit Test Suites", () => {
+
+   it("should return true if the email is valid", () => {
+     expect(isEmailValid(filledForm,errorText)).toEqual(true);
+   });
+
+   it("should throw an error if the email is invalid", () => {
+     expect(() => isEmailValid(invalidForm,errorText)).toThrow("email invalid");
+   });
+
+   it("should throw an error if the email is invalid", () => {
+     expect(() => isEmailValid(invalidForm2,errorText)).toThrow("email invalid");
+   });
+
   });
-
-  it('should throw a "missing param p" error', () => {
-    expect(() => calculateAge()).toThrow("missing param p");
-  });
-
-  it(`should throw a "it's not an object" error`, () => {
-    expect(() => calculateAge("123456")).toThrow("it's not an object");
-  });
-
-  it('should throw a "birth is missing in the object" error', () => {
-    expect(() => calculateAge({})).toThrow("birth is missing in the object");
-  });
-
-  it('should throw a "birth is not a date" error', () => {
-    expect(() => calculateAge({birth: "11/07/1991"})).toThrow("birth is not a date");
-  });
-
-  it('should throw a "wrong date" error', () => {
-    const wrong = {
-        birth: new Date("51/07/1991"),
-      };
-    expect(() => calculateAge(wrong)).toThrow("wrong date");
-  });
-
-  it('should return correct date next year', () => {
-    const currentDate = new Date();
-    const newDate = currentDate.setFullYear(currentDate.getFullYear() - 20);
-    expect(calculateAge({birth:new Date(newDate)})).toBe(20);
-  });
-
-});
