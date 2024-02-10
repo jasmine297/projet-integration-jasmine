@@ -107,7 +107,7 @@ import { isFormFilled, isNameValid, isBirthDateValid, isZipCodeValid, isEmailVal
    });
 
    it("should throw an error if the birth date is invalid", () => {
-    expect(() => isBirthDateValid(invalidForm2,errorText)).toThrow("birthDate doesn't have the format allow");
+    expect(() => isBirthDateValid(invalidForm2,errorText)).toThrow("birthDate is not a date");
    });
 
    it("should throw an error if the birth date is invalid", () => {

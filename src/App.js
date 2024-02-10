@@ -59,10 +59,12 @@ function App() {
   const isFormValid = () => {
     let valid = true;
     
+    
     try {
       if (!isNameValid(form, form.firstName, errorText)) {
         setFieldError("firstName", true, errorText.firstName);
         valid = false;
+        console.log(valid);
       } else {
         setFieldError("firstName", false, ""); 
       }
@@ -74,6 +76,7 @@ function App() {
       if (!isNameValid(form, form.lastName, errorText)) {
         setFieldError("lastName", true, errorText.lastName);
         valid = false;
+        console.log(valid);
       } else {
         setFieldError("lastName", false, ""); 
       }
@@ -85,6 +88,7 @@ function App() {
       if (!isEmailValid(form, errorText)) {
         setFieldError("email", true, errorText.email);
         valid = false;
+        console.log(valid);
       } else {
         setFieldError("email", false, ""); 
       }
@@ -96,6 +100,7 @@ function App() {
       if (!isBirthDateValid(form, errorText)) {
         setFieldError("birthDate", true, errorText.birthDate);
         valid = false;
+        console.log(valid);
       } else {
         setFieldError("birthDate", false, ""); 
       }
@@ -107,6 +112,7 @@ function App() {
       if (!isZipCodeValid(form, errorText)) {
         setFieldError("zipCode", true, errorText.zipCode);
         valid = false;
+        console.log(valid);
       } else {
         setFieldError("zipCode", false, ""); 
       }
@@ -114,7 +120,10 @@ function App() {
       
     }
     
-    console.log(errorState);
+    if (errorText.birthDate !== '' || errorText.zipCode !== '' || errorText.firstName !== '' || errorText.lastName !== '' || errorText.email !== '') {
+      valid = false;
+    }
+    
     return valid;
   };
 

@@ -32,20 +32,18 @@ export function isNameValid(form, name, errorText) {
 }
 
 export function isBirthDateValid(form, errorText) {
+
   if (!(form.birthDate instanceof Date)) {
-    const [month, day, year] = form.birthDate.split("-");
-    if(!(month && day && year)) {
-        errorText.birthDate = "birthDate doesn't have the format allow";
-        throw new Error("birthDate doesn't have the format allow");
-    }else{
-      form.birthDate = new Date(`${year}-${month}-${day}`);
-      if (!(form.birthDate instanceof Date)) {
-          errorText.birthDate = "birthDate is not a date";
-          throw new Error("birthDate is not a date");
-      }
+    const dateRegex = /^(0[1-9]|1[0-2])-(0[1-9]|1\d|2\d|3[01])-(19|20)\d{2}$/;
+    if(!(form.birthDate.match(dateRegex) !== null)) {
+        errorText.birthDate = "birthDate is not a date";
+        throw new Error("birthDate is not a date");
     }
-    
   }
+  
+  
+  const [month, day, year] = form.birthDate.split("-");
+  form.birthDate = new Date(`${year}-${month}-${day}`);
   let dateDiff = new Date(Date.now() - form.birthDate.getTime());
   let age = Math.abs(dateDiff.getUTCFullYear() - 1970);
   if (age < 18) {
