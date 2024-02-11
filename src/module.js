@@ -1,3 +1,9 @@
+/**
+ * Check if all fields in the form are filled.
+ * @param {object} form - The form object containing fields to check.
+ * @throws {Error} Throws an error if any required field is empty.
+ * @returns {boolean} Returns true if all fields are filled.
+ */
 export function isFormFilled(form) {
   if (
     form.lastName !== "" &&
@@ -13,6 +19,14 @@ export function isFormFilled(form) {
   }
 }
 
+/**
+ * Validate a first name or last name field.
+ * @param {object} form - The form object containing the field.
+ * @param {string} name - The name to validate (firstName or lastName).
+ * @param {object} errorText - The object to store error messages.
+ * @throws {Error} Throws an error if the firstName or lastName is invalid.
+ * @returns {boolean} Returns true if the firstName or lastName is valid.
+ */
 export function isNameValid(form, name, errorText) {
     const nameRegex = /^[A-Za-zÀ-ÖØ-öø-ÿ'\- ]+$/;
 
@@ -31,6 +45,13 @@ export function isNameValid(form, name, errorText) {
   
 }
 
+/**
+ * Validate a birth date field.
+ * @param {object} form - The form object containing the field.
+ * @param {object} errorText - The object to store error messages.
+ * @throws {Error} Throws an error if the birth date is not a date or age is smaller than 18.
+ * @returns {boolean} Returns true if the birth date is valid and age is greater than or equal to 18.
+ */
 export function isBirthDateValid(form, errorText) {
 
   if (!(form.birthDate instanceof Date)) {
@@ -40,7 +61,6 @@ export function isBirthDateValid(form, errorText) {
         throw new Error("birthDate is not a date");
     }
   }
-  
   
   const [month, day, year] = form.birthDate.split("-");
   form.birthDate = new Date(`${year}-${month}-${day}`);
@@ -53,14 +73,28 @@ export function isBirthDateValid(form, errorText) {
   return age >= 18;
 }
 
+/**
+ * Validate a zip code field.
+ * @param {object} form - The form object containing the field.
+ * @param {object} errorText - The object to store error messages.
+ * @throws {Error} Throws an error if the zip code is not or/and length not equal 5.
+ * @returns {boolean} Returns true if the zip code is valid.
+ */
 export function isZipCodeValid(form, errorText) {
     if (form.zipCode.length !== 5 || !/^\d+$/.test(form.zipCode)) {
-        errorText.zipCode = "zipCode must be a number and french with lenght equal 5";
-        throw new Error( "zipCode must be a number and french with lenght equal 5");
+        errorText.zipCode = "zipCode must be a number and french with length equal 5";
+        throw new Error( "zipCode must be a number and french with length equal 5");
     }
     return true;
 }
 
+/**
+ * Validate an email field.
+ * @param {object} form - The form object containing the field.
+ * @param {object} errorText - The object to store error messages.
+ * @throws {Error} Throws an error if the email is invalid.
+ * @returns {boolean} Returns true if the email is valid.
+ */
 export function isEmailValid(form, errorText) {
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

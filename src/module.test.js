@@ -59,7 +59,7 @@ import { isFormFilled, isNameValid, isBirthDateValid, isZipCodeValid, isEmailVal
    }
  });
 
- describe("isFormFilled Unit Test Suites", () => {
+ describe("isFormFilled Test ", () => {
 
    it("should return true if the form is filled", () => {
      expect(isFormFilled(filledForm)).toEqual(true);
@@ -76,21 +76,21 @@ import { isFormFilled, isNameValid, isBirthDateValid, isZipCodeValid, isEmailVal
 
  });
 
- describe("isNameValid Unit Test Suites", () => {
+ describe("isNameValid Test", () => {
 
-   it("should return true if the name is valid", () => {
+   it("should return true if the firstname is valid", () => {
      expect(isNameValid(filledForm,filledForm.firstName,errorText)).toEqual(true);
    });
 
-   it("should return true if the name is valid", () => {
+   it("should return true if thelast name is valid", () => {
      expect(isNameValid(filledForm,filledForm.lastName,errorText)).toEqual(true);
    });
 
-   it("should throw an error if the name is invalid", () => {
+   it("should throw an error if the lastname is invalid", () => {
      expect(() => isNameValid(invalidForm,invalidForm.lastName,errorText)).toThrow("lastname invalid");
    });
 
-   it("should throw an error if the name is invalid", () => {
+   it("should throw an error if the firstname is invalid", () => {
      expect(() => isNameValid(invalidForm,invalidForm.firstName,errorText)).toThrow("firstname invalid");
    });
    
@@ -110,7 +110,7 @@ import { isFormFilled, isNameValid, isBirthDateValid, isZipCodeValid, isEmailVal
     expect(() => isBirthDateValid(invalidForm2,errorText)).toThrow("birthDate is not a date");
    });
 
-   it("should throw an error if the birth date is invalid", () => {
+   it("should throw an error if the birth date is invalid 2", () => {
     const birthInvalid = {
       birthDate:"111-111-111"
     };
@@ -125,12 +125,12 @@ import { isFormFilled, isNameValid, isBirthDateValid, isZipCodeValid, isEmailVal
      expect(isZipCodeValid(filledForm,errorText)).toEqual(true);
    });
 
-   it("should throw an error if the zip code is invalid", () => {
-     expect(() => isZipCodeValid(invalidForm,errorText)).toThrow("zipCode must be a number and french with lenght equal ");
+   it("should throw an error if the zip code is invalid, length not equal 5", () => {
+     expect(() => isZipCodeValid(invalidForm,errorText)).toThrow("zipCode must be a number and french with length equal ");
    });
 
-   it("should throw an error if the zip code is invalid", () => {
-     expect(() => isZipCodeValid(invalidForm2,errorText)).toThrow("zipCode must be a number and french with lenght equal ");
+   it("should throw an error if the zip code is invalid, not only number", () => {
+     expect(() => isZipCodeValid(invalidForm2,errorText)).toThrow("zipCode must be a number and french with length equal ");
    });
 
  });
@@ -145,7 +145,7 @@ import { isFormFilled, isNameValid, isBirthDateValid, isZipCodeValid, isEmailVal
      expect(() => isEmailValid(invalidForm,errorText)).toThrow("email invalid");
    });
 
-   it("should throw an error if the email is invalid", () => {
+   it("should throw an error if the email is invalid2", () => {
      expect(() => isEmailValid(invalidForm2,errorText)).toThrow("email invalid");
    });
 
