@@ -26,9 +26,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Setup jsdoc
-        run: |
-          npm run jsdoc
       - name: npm ci, build and test
         run: |
           npm ci
@@ -38,6 +35,9 @@ jobs:
         uses: codecov/codecov-action@v3
         env:
           token: ${{ secrets.CODECOV_TOKEN }}
+      - name: Setup jsdoc
+        run: |
+          npm run jsdoc
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v3
