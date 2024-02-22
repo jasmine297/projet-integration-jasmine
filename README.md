@@ -1,7 +1,5 @@
-# proj-name 
-## proj-title
 
-[![version](https://img.shields.io/badge/version-1.0.1-yellow.svg)](https://semver.org)
+[![version](https://img.shields.io/badge/version-1.0.1-yellow.svg)]
 
 
 # Getting Started with Create React App
