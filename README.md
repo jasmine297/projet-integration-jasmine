@@ -1,5 +1,5 @@
 
-[![version](https://img.shields.io/badge/version-1.0.1-yellow.svg)]
+![version]
 
 
 # Getting Started with Create React App
