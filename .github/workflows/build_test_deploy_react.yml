@@ -47,8 +47,8 @@ jobs:
           if-no-files-found: error
       - name: Versionning
         run: |
-          git config --global user.email "jasmine.routriabi06@gmail.com"
           git config --global user.name "jasmine297"
+          git config --global user.email "jasmine.routriabi06@gmail.com"
           git tag v0.1.0-${{ github.run_id }}.${{ github.run_number }}.${{ github.run_attempt }} -a -m "buil version ${{ github.run_id }}.${{ github.run_number }}.${{ github.run_attempt }}"
           npm version from-git
 
